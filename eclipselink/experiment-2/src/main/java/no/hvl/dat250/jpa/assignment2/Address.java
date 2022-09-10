@@ -2,25 +2,39 @@ package no.hvl.dat250.jpa.assignment2;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String street;
+    private Integer number;
+
+    @ManyToMany
+    private Set<Person> owners;
 
     public String getStreet() {
-        // TODO: implement method!
-        return null;
+        return this.street;
     }
 
     public Integer getNumber() {
-        // TODO: implement method!
-        return null;
+        return this.number;
+    }
+    public Collection<Person> getOwners() {
+        return this.owners;
     }
 
-    public Collection<Person> getOwners() {
-        // TODO: implement method!
-        return null;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public void addOwner(Person person) {
+        owners.add(person);
     }
 }

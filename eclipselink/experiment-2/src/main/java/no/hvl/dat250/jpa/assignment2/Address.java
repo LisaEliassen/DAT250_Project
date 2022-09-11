@@ -2,6 +2,7 @@ package no.hvl.dat250.jpa.assignment2;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,8 +13,8 @@ public class Address {
     private String street;
     private Integer number;
 
-    @ManyToMany
-    private Set<Person> owners;
+    @ManyToMany(mappedBy = "addresses")
+    private Set<Person> owners = new HashSet<>();
 
     public String getStreet() {
         return this.street;

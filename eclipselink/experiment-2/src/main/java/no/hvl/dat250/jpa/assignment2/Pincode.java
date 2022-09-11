@@ -29,4 +29,8 @@ public class Pincode {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

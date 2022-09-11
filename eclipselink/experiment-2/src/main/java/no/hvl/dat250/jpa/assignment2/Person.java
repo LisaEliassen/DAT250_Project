@@ -2,6 +2,7 @@ package no.hvl.dat250.jpa.assignment2;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,10 +11,13 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany()
-    Set<Address> addresses;
-    @OneToMany()
-    Set<CreditCard> creditCards;
+    @ManyToMany
+    @JoinTable(name = "addresses_fk")
+    Set<Address> addresses = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "creditcards_fk")
+    Set<CreditCard> creditCards = new HashSet<>();;
 
     public String getName() {
         return this.name;
@@ -35,7 +39,7 @@ public class Person {
         this.addresses.add(address);
     }
 
-    public void setCreditCards(CreditCard creditCard) {
+    public void addCreditCard(CreditCard creditCard) {
         this.creditCards.add(creditCard);
     }
 }

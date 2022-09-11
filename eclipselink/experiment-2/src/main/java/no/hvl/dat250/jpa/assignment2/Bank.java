@@ -1,6 +1,7 @@
 package no.hvl.dat250.jpa.assignment2;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -9,8 +10,8 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany()
-    private Set<CreditCard> ownedCards;
+    @OneToMany(mappedBy = "owningBank")
+    private Set<CreditCard> ownedCards = new HashSet<>();
 
     public Long getId() {
         return id;

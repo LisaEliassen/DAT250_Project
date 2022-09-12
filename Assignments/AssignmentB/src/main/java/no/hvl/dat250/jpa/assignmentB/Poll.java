@@ -10,7 +10,7 @@ public class Poll {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "owningPoll")
+    @OneToMany(mappedBy = "poll")
     private Set<Vote> ownedCards = new HashSet<>();
 
     public Long getId() {

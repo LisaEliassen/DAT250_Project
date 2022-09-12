@@ -29,12 +29,12 @@ public class Main {
         pollResult.addOwner(votingUser);
 
         // Creditcards and password:
-        vote1.setNumber(12345);
+/*        vote1.setNumber(12345);
         vote1.setBalance(-5000);
         vote1.setLimit(-10000);
         vote2.setNumber(123);
         vote2.setBalance(1);
-        vote2.setLimit(2000);
+        vote2.setLimit(2000);*/
         password.setPincode("123");
         password.setCount(1);
 
@@ -44,10 +44,10 @@ public class Main {
         poll.addOwnedCard(vote2);
 
         // Creditcards:
-        vote1.setOwningBank(poll);
-        vote2.setOwningBank(poll);
-        vote1.setPincode(password);
-        vote2.setPincode(password);
+        vote1.setPoll(poll);
+        vote2.setPoll(poll);
+/*        vote1.setPincode(password);
+        vote2.setPincode(password);*/
 
         tx.begin();
         em.persist(poll);

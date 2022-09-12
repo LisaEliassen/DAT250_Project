@@ -1,17 +1,17 @@
-package no.hvl.dat250.jpa.assignment2;
+package no.hvl.dat250.jpa.assignmentB;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Bank {
+public class Poll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "owningBank")
-    private Set<CreditCard> ownedCards = new HashSet<>();
+    @OneToMany(mappedBy = "owningPoll")
+    private Set<Vote> ownedCards = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -21,7 +21,7 @@ public class Bank {
         return this.name;
     }
 
-    public Set<CreditCard> getOwnedCards() {
+    public Set<Vote> getOwnedCards() {
         return this.ownedCards;
     }
 
@@ -29,7 +29,7 @@ public class Bank {
         this.name = name;
     }
 
-    public void addOwnedCard(CreditCard card) {
+    public void addOwnedCard(Vote card) {
         getOwnedCards().add(card);
     }
 }

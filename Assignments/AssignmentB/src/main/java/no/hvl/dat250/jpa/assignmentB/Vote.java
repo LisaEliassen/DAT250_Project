@@ -1,9 +1,9 @@
-package no.hvl.dat250.jpa.assignment2;
+package no.hvl.dat250.jpa.assignmentB;
 
 import javax.persistence.*;
 
 @Entity
-public class CreditCard {
+public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,10 +12,10 @@ public class CreditCard {
     private Integer limit;
     @OneToOne
     @JoinColumn(name = "pincode_fk")
-    private Pincode pincode;
-    @ManyToOne(targetEntity = Bank.class)
+    private Password password;
+    @ManyToOne(targetEntity = Poll.class)
     @JoinColumn(name = "bank_fk")
-    private Bank owningBank;
+    private Poll owningPoll;
 
     public Integer getNumber() {
         return this.number;
@@ -29,12 +29,12 @@ public class CreditCard {
         return this.limit;
     }
 
-    public Pincode getPincode() {
-        return this.pincode;
+    public Password getPincode() {
+        return this.password;
     }
 
-    public Bank getOwningBank() {
-        return this.owningBank;
+    public Poll getOwningBank() {
+        return this.owningPoll;
     }
 
     public void setNumber(Integer number) {
@@ -48,11 +48,11 @@ public class CreditCard {
     public void setLimit(Integer limit) {
         this.limit = limit;
     }
-    public void setPincode(Pincode pincode) {
-        this.pincode = pincode;
+    public void setPincode(Password password) {
+        this.password = password;
     }
 
-    public void setOwningBank(Bank owningBank) {
-        this.owningBank = owningBank;
+    public void setOwningBank(Poll owningPoll) {
+        this.owningPoll = owningPoll;
     }
 }

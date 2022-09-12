@@ -1,9 +1,9 @@
-package no.hvl.dat250.jpa.assignment2;
+package no.hvl.dat250.jpa.assignmentB;
 
 import javax.persistence.*;
 
 @Entity
-public class Pincode {
+public class Password {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

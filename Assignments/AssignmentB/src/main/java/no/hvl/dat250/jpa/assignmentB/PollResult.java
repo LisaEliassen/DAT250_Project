@@ -1,4 +1,4 @@
-package no.hvl.dat250.jpa.assignment2;
+package no.hvl.dat250.jpa.assignmentB;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -6,15 +6,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Address {
+public class PollResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String street;
     private Integer number;
 
-    @ManyToMany(mappedBy = "addresses")
-    private Set<Person> owners = new HashSet<>();
+    @ManyToMany(mappedBy = "pollResults")
+    private Set<VotingUser> owners = new HashSet<>();
 
     public String getStreet() {
         return this.street;
@@ -23,7 +23,7 @@ public class Address {
     public Integer getNumber() {
         return this.number;
     }
-    public Collection<Person> getOwners() {
+    public Collection<VotingUser> getOwners() {
         return this.owners;
     }
 
@@ -35,7 +35,7 @@ public class Address {
         this.number = number;
     }
 
-    public void addOwner(Person person) {
-        owners.add(person);
+    public void addOwner(VotingUser votingUser) {
+        owners.add(votingUser);
     }
 }

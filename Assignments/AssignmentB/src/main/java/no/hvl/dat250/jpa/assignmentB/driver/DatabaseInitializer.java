@@ -1,4 +1,4 @@
-package no.hvl.dat250.jpa.assignment2.driver;
+package no.hvl.dat250.jpa.assignmentB.driver;
 
 import javax.persistence.*;
 /**

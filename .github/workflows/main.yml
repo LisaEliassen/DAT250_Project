@@ -15,4 +15,4 @@ jobs:
           distribution: 'adopt'
       - name: Test JPA assignment
         run: mvn --batch-mode --update-snapshots verify
-        working-directory: eclipselink/experiment-2
+        working-directory: Assignments/AssignmentB

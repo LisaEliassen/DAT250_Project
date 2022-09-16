@@ -6,31 +6,14 @@ import javax.persistence.*;
 public class Password {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String pincode;
-    private Integer count;
 
-    public Long getId() {
-        return id;
+    private String password;
+
+    public String getPassword() {
+        return password;
     }
 
-    public String getPincode() {
-        return this.pincode;
-    }
-
-    public Integer getCount() {
-        return this.count;
-    }
-
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

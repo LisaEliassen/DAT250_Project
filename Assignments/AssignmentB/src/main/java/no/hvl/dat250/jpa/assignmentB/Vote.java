@@ -6,16 +6,15 @@ import javax.persistence.*;
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @ManyToOne(targetEntity = Poll.class)
-    @JoinColumn(name = "poll_fk")
-    private Poll poll;
 
-    public Poll getPoll() {
-        return this.poll;
+    private String vote;
+
+    public String getVote() {
+        return vote;
     }
 
-    public void setPoll(Poll owningPoll) {
-        this.poll = owningPoll;
+    public void setVote(String vote) {
+        this.vote = vote;
     }
+
 }

@@ -8,28 +8,23 @@ import java.util.Set;
 public class Poll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @OneToMany(mappedBy = "poll")
-    private Set<Vote> ownedCards = new HashSet<>();
+    private Long pollID;
+    private String pollName;
 
-    public Long getId() {
-        return id;
+    public Long getPollID() {
+        return pollID;
     }
 
-    public String getName() {
-        return this.name;
+    public void setPollID(Long pollID) {
+        this.pollID = pollID;
     }
 
-    public Set<Vote> getOwnedCards() {
-        return this.ownedCards;
+    public String getPollName() {
+        return this.pollName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPollName(String newName) {
+        this.pollName = newName;
     }
 
-    public void addOwnedCard(Vote card) {
-        getOwnedCards().add(card);
-    }
 }

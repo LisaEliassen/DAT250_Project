@@ -2,7 +2,7 @@ package no.hvl.dat250.jpa.assignmentB;
 
 import java.util.Collection;
 
-public abstract class User {
+public class User {
     private Long id;
     private String name;
 

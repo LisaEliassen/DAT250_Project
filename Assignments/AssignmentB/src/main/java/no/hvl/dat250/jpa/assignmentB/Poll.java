@@ -1,8 +1,6 @@
 package no.hvl.dat250.jpa.assignmentB;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Poll {

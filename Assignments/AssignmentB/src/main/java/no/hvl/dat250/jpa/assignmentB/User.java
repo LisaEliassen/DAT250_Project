@@ -24,6 +24,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Vote> votes = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "Devices_Users")
+    private Set<Devices> devices = new HashSet<>();
+
     public Long getUserID() {
         return userID;
     }

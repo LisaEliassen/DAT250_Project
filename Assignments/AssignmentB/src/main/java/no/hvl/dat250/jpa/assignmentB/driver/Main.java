@@ -15,10 +15,6 @@ public class Main {
         EntityManager em = factory.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
-
-
-
-
         //tx.begin();
 
         //tx.commit();

@@ -1,14 +1,28 @@
 package no.hvl.dat250.jpa.assignmentB;
 
-import java.util.Collection;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
     private String username;
-    private String password;
     private String firstName;
     private String lastName;
     private boolean admin;
+
+    @OneToOne()
+    @JoinColumn(name = "password_ID")
+    private Password password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Poll> polls = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Vote> votes = new HashSet<>();
 
     public Long getUserID() {
         return userID;
@@ -24,14 +38,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -56,6 +62,30 @@ public class User {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
+    }
+
+    public Set<Poll> getPoll() {
+        return polls;
+    }
+
+    public void setPoll(Poll poll) {
+        this.polls.add(poll);
+    }
+
+    public Set<Vote> getVote() {
+        return votes;
+    }
+
+    public void setVote(Vote vote) {
+        this.votes.add(vote);
     }
 
 }

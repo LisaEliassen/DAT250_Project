@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Password {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    private Long passwordID;
     private String password;
 
     public String getPassword() {

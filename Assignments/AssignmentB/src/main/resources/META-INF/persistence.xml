@@ -6,15 +6,15 @@
 
         <class>no.hvl.dat250.jpa.assignmentB.Password</class>
         <class>no.hvl.dat250.jpa.assignmentB.Poll</class>
-        <class>no.hvl.dat250.jpa.assignmentB.PollResult</class>
-        <class>no.hvl.dat250.jpa.assignmentB.User</class>
+        <class>no.hvl.dat250.jpa.assignmentB.FeedAppUser</class>
         <class>no.hvl.dat250.jpa.assignmentB.Vote</class>
+        <class>no.hvl.dat250.jpa.assignmentB.Device</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:derby:C:\Users\lisae\FeedAppDB;create=true"/>
-            <property name="javax.persistence.jdbc.votingUser" value="test"/>
+            <property name="javax.persistence.jdbc.user" value="test"/>
             <property name="javax.persistence.jdbc.password" value="test"/>
 
             <property name="eclipselink.ddl-generation" value="create-tables"/>

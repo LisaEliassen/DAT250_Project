@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class User {
+public class FeedAppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
@@ -15,13 +15,13 @@ public class User {
     private boolean admin;
 
     @OneToOne()
-    @JoinColumn(name = "password_ID")
+    @JoinColumn(name = "password")
     private Password password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "feedAppUser")
     private Set<Poll> polls = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "feedAppUser")
     private Set<Vote> votes = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)

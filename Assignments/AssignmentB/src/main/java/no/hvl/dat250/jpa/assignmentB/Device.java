@@ -9,21 +9,20 @@ public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private String deviceID;
+    private Long deviceID;
 
     private String typeOfDevice;
 
     private String deviceCookie;
 
     @ManyToMany(mappedBy = "device")
-    private Set<User> users = new HashSet<>();
+    private Set<FeedAppUser> feedAppUsers = new HashSet<>();
 
-    public String getDeviceID() {
+    public Long getDeviceID() {
         return deviceID;
     }
 
-    public void setDeviceID(String deviceID) {
+    public void setDeviceID(Long deviceID) {
         this.deviceID = deviceID;
     }
 
@@ -43,12 +42,12 @@ public class Device {
         this.deviceCookie = deviceCookie;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<FeedAppUser> getUsers() {
+        return feedAppUsers;
     }
 
-    public void setUsers(User user) {
-        this.users.add(user);
+    public void setUsers(FeedAppUser feedAppUser) {
+        this.feedAppUsers.add(feedAppUser);
     }
 
 }

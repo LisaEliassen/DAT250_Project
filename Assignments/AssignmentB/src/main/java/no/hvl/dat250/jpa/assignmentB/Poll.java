@@ -17,9 +17,9 @@ public class Poll {
 
     private String pollResult;
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = FeedAppUser.class)
     @JoinColumn(name = "user_ID")
-    private User user;
+    private FeedAppUser feedAppUser;
 
     @OneToMany(mappedBy = "poll")
     private Set<Vote> votes = new HashSet<>();
@@ -40,12 +40,12 @@ public class Poll {
         this.pollName = newName;
     }
 
-    public User getUser() {
-        return user;
+    public FeedAppUser getUser() {
+        return feedAppUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(FeedAppUser feedAppUser) {
+        this.feedAppUser = feedAppUser;
     }
 
     public String getCategory() {

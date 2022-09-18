@@ -28,6 +28,12 @@ public class FeedAppUser {
     @JoinTable(name = "Devices_Users")
     private Set<Device> device = new HashSet<>();
 
+    public FeedAppUser() {
+    }
+    public FeedAppUser(Long id) {
+        this.setUserID(id);
+    }
+
     public Long getUserID() {
         return userID;
     }

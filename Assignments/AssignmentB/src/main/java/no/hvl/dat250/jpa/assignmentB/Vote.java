@@ -42,4 +42,12 @@ public class Vote {
         this.poll = poll;
     }
 
+    public Long getVoteID() {
+        return voteID;
+    }
+
+    public void setVoteID(Long voteID) {
+        this.voteID = voteID;
+    }
+
 }

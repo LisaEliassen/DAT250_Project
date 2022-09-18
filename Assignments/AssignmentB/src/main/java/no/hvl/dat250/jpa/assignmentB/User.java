@@ -26,7 +26,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Devices_Users")
-    private Set<Devices> devices = new HashSet<>();
+    private Set<Device> device = new HashSet<>();
 
     public Long getUserID() {
         return userID;
@@ -90,6 +90,14 @@ public class User {
 
     public void setVote(Vote vote) {
         this.votes.add(vote);
+    }
+
+    public Set<Device> getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device.add(device);
     }
 
 }

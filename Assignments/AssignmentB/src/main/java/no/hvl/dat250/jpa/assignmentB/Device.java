@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Devices {
+public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Devices {
 
     private String deviceCookie;
 
-    @ManyToMany(mappedBy = "devices")
+    @ManyToMany(mappedBy = "device")
     private Set<User> users = new HashSet<>();
 
     public String getDeviceID() {

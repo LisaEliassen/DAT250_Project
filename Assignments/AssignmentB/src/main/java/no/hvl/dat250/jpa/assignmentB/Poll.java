@@ -11,6 +11,12 @@ public class Poll {
     private Long pollID;
     private String pollName;
 
+    private String category;
+
+    private String description;
+
+    private String pollResult;
+
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_ID")
     private User user;
@@ -40,6 +46,38 @@ public class Poll {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPollResult() {
+        return pollResult;
+    }
+
+    public void setPollResult(String pollResult) {
+        this.pollResult = pollResult;
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVote(Vote vote) {
+        this.votes.add(vote);
     }
 
 }

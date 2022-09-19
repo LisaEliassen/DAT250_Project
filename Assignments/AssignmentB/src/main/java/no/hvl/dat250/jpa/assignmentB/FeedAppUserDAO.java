@@ -36,6 +36,6 @@ public class FeedAppUserDAO {
         user.setUsername(params[0]);
         user.setFirstName(params[1]);
         user.setLastName(params[2]);
-        user.getPassword().setPassword(params[3]);
+        user.setPassword(params[3]);
     }
 }

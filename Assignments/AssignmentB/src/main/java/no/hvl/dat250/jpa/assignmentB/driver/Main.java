@@ -17,100 +17,45 @@ public class Main {
 
         tx.begin();
 
-        //admin password
-        Password passwordAdmin = new Password();
-        passwordAdmin.setPassword("admin");
-
         //first admin user
         FeedAppUser feedAppUserAdmin1 = new FeedAppUser();
-        Device deviceAdmin1 = new Device();
 
         feedAppUserAdmin1.setAdmin(true);
         feedAppUserAdmin1.setUsername("admin");
         feedAppUserAdmin1.setFirstName("Olesya");
         feedAppUserAdmin1.setLastName("Pasichnyk");
-        feedAppUserAdmin1.setPassword(passwordAdmin);
-
-        deviceAdmin1.setDeviceID(1L);
-        deviceAdmin1.setDeviceCookie("1234567890");
-        deviceAdmin1.setTypeOfDevice("Laptop");
-        deviceAdmin1.setUsers(feedAppUserAdmin1);
-
-        feedAppUserAdmin1.setDevice(deviceAdmin1);
+        feedAppUserAdmin1.setPassword("passwordAdmin");
 
         //second admin user
         FeedAppUser feedAppUserAdmin2 = new FeedAppUser();
-        Device deviceAdmin2 = new Device();
 
         feedAppUserAdmin2.setAdmin(true);
         feedAppUserAdmin2.setUsername("admin");
         feedAppUserAdmin2.setFirstName("Lisa Maria");
         feedAppUserAdmin2.setLastName("Eliassen");
-        feedAppUserAdmin2.setPassword(passwordAdmin);
-
-        deviceAdmin2.setDeviceID(2L);
-        deviceAdmin2.setDeviceCookie("0987654321");
-        deviceAdmin2.setTypeOfDevice("Desktop");
-        deviceAdmin2.setUsers(feedAppUserAdmin2);
-
-        feedAppUserAdmin2.setDevice(deviceAdmin2);
+        feedAppUserAdmin2.setPassword("passwordAdmin");
 
         //first user
         FeedAppUser feedAppUser1 = new FeedAppUser();
-        Device user1Device = new Device();
-        Password user1Password = new Password();
-        user1Password.setPassword("sunset00..");
 
         feedAppUser1.setAdmin(false);
         feedAppUser1.setUsername("thums");
         feedAppUser1.setFirstName("Thomas");
         feedAppUser1.setLastName("Ulseth");
-        feedAppUser1.setPassword(user1Password);
-
-        user1Device.setDeviceID(3L);
-        user1Device.setDeviceCookie("1230984567");
-        user1Device.setTypeOfDevice("Desktop");
-        user1Device.setUsers(feedAppUser1);
-
-        feedAppUser1.setDevice(user1Device);
+        feedAppUser1.setPassword("user1Password");
 
         //second user
         FeedAppUser feedAppUser2 = new FeedAppUser();
-        Device user2Device = new Device();
-        Password user2Password = new Password();
-        user2Password.setPassword("sunrise99++");
 
         feedAppUser2.setAdmin(false);
         feedAppUser2.setUsername("kevols");
         feedAppUser2.setFirstName("Kevin");
         feedAppUser2.setLastName("Olsen");
-        feedAppUser2.setPassword(user2Password);
-
-        user2Device.setDeviceID(4L);
-        user2Device.setDeviceCookie("0981237654");
-        user2Device.setTypeOfDevice("Laptop");
-        user2Device.setUsers(feedAppUser2);
-
-        feedAppUser2.setDevice(user2Device);
+        feedAppUser2.setPassword("user2Password");
 
         //first IoT device
-        FeedAppUser feedAppUserIoT = new FeedAppUser();
-        Device iotDevice = new Device();
-        Password iotPassword = new Password();
-        iotPassword.setPassword("");
-
-        feedAppUserIoT.setAdmin(false);
-        feedAppUserIoT.setUsername("IoT");
-        feedAppUserIoT.setFirstName("");
-        feedAppUserIoT.setLastName("");
-        feedAppUserIoT.setPassword(iotPassword);
-
+        IOTDevice iotDevice = new IOTDevice();
         iotDevice.setDeviceID(5L);
-        iotDevice.setDeviceCookie("1357924680");
-        iotDevice.setTypeOfDevice("IoT");
-        iotDevice.setUsers(feedAppUserIoT);
-
-        feedAppUserIoT.setDevice(iotDevice);
 
         //first poll owned by feedAppUser1
         Poll poll1 = new Poll();
@@ -124,7 +69,7 @@ public class Main {
         //add the poll to it's owner
         feedAppUser1.setPoll(poll1);
 
-        //first vote for poll1
+        //first vote for poll1 (USER2)
         Vote vote1Poll1 = new Vote();
         vote1Poll1.setPoll(poll1);
         vote1Poll1.setVote("Dog");
@@ -133,14 +78,14 @@ public class Main {
         poll1.setVote(vote1Poll1);
         feedAppUser2.setVote(vote1Poll1);
 
-        //second vote for poll1
+        //second vote for poll1 (IOT)
         Vote vote2Poll1 = new Vote();
         vote2Poll1.setPoll(poll1);
         vote2Poll1.setVote("Dog");
-        vote2Poll1.setUser(feedAppUserIoT);
+        vote2Poll1.setIot(iotDevice);
 
         poll1.setVote(vote2Poll1);
-        feedAppUserIoT.setVote(vote2Poll1);
+        iotDevice.setVote(vote2Poll1);
 
         tx.commit();
 

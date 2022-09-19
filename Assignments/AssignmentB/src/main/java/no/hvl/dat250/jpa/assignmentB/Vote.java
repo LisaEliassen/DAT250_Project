@@ -18,6 +18,9 @@ public class Vote {
     @JoinColumn(name = "poll_ID")
     private Poll poll;
 
+    @OneToOne(mappedBy = "vote")
+    private IOTDevice iot;
+
     public String getVote() {
         return vote;
     }
@@ -50,4 +53,11 @@ public class Vote {
         this.voteID = voteID;
     }
 
+    public IOTDevice getIot() {
+        return iot;
+    }
+
+    public void setIot(IOTDevice iot) {
+        this.iot = iot;
+    }
 }

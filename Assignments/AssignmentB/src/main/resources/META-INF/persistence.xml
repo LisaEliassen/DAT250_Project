@@ -4,16 +4,16 @@
              version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="AssignmentB" transaction-type="RESOURCE_LOCAL">
 
-        <class>no.hvl.dat250.jpa.assignmentB.Password</class>
         <class>no.hvl.dat250.jpa.assignmentB.Poll</class>
         <class>no.hvl.dat250.jpa.assignmentB.FeedAppUser</class>
         <class>no.hvl.dat250.jpa.assignmentB.Vote</class>
-        <class>no.hvl.dat250.jpa.assignmentB.Device</class>
+        <class>no.hvl.dat250.jpa.assignmentB.IOTDevice</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:derby:C:\Users\lisae\FeedAppDB;create=true"/>
+            <!--      value="jdbc:derby:C:\Users\olesy\FeedAppDB;create=true"/> -->
             <property name="javax.persistence.jdbc.user" value="test"/>
             <property name="javax.persistence.jdbc.password" value="test"/>
 

@@ -24,6 +24,9 @@ public class Poll {
     @OneToMany(mappedBy = "poll")
     private Set<Vote> votes = new HashSet<>();
 
+    @OneToOne(mappedBy = "poll")
+    private IOTDevice iot;
+
     public Long getPollID() {
         return pollID;
     }

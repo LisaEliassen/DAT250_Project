@@ -14,19 +14,13 @@ public class FeedAppUser {
     private String lastName;
     private boolean admin;
 
-    @OneToOne()
-    @JoinColumn(name = "password")
-    private Password password;
+    private String password;
 
     @OneToMany(mappedBy = "feedAppUser")
     private Set<Poll> polls = new HashSet<>();
 
     @OneToMany(mappedBy = "feedAppUser")
     private Set<Vote> votes = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "Devices_Users")
-    private Set<Device> device = new HashSet<>();
 
     public FeedAppUser() {
     }
@@ -74,14 +68,6 @@ public class FeedAppUser {
         this.admin = admin;
     }
 
-    public Password getPassword() {
-        return password;
-    }
-
-    public void setPassword(Password password) {
-        this.password = password;
-    }
-
     public Set<Poll> getPoll() {
         return polls;
     }
@@ -98,12 +84,11 @@ public class FeedAppUser {
         this.votes.add(vote);
     }
 
-    public Set<Device> getDevice() {
-        return device;
+    public String getPassword() {
+        return password;
     }
 
-    public void setDevice(Device device) {
-        this.device.add(device);
+    public void setPassword(String password) {
+        this.password = password;
     }
-
 }

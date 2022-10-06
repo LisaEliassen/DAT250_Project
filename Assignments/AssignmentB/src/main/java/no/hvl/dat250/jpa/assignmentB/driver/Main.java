@@ -59,12 +59,12 @@ public class Main {
 
         //first poll owned by feedAppUser1
         Poll poll1 = new Poll();
-        poll1.setPollID(195245L); //the id you need to search for this poll
+        poll1.setID(195245L); //the id you need to search for this poll
         poll1.setUser(feedAppUser1);
-        poll1.setPollName("CATS OR DOGS?"); //the name you need to search for this poll
+        poll1.setName("CATS OR DOGS?"); //the name you need to search for this poll
         poll1.setCategory("Animals");
         poll1.setDescription("Poll to figure out which animal (cat or dog) people like the best.");
-        poll1.setPollResult("Dog wins");
+        poll1.setResult("Dog wins");
 
         //add the poll to it's owner
         feedAppUser1.setPoll(poll1);

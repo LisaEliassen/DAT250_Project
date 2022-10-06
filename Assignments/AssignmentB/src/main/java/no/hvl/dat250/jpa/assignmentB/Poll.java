@@ -10,11 +10,8 @@ public class Poll {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pollID;
     private String pollName;
-
     private String category;
-
     private String description;
-
     private String pollResult;
 
     @ManyToOne(targetEntity = FeedAppUser.class)
@@ -27,19 +24,19 @@ public class Poll {
     @OneToOne(mappedBy = "poll")
     private IOTDevice iot;
 
-    public Long getPollID() {
+    public Long getID() {
         return pollID;
     }
 
-    public void setPollID(Long pollID) {
+    public void setID(Long pollID) {
         this.pollID = pollID;
     }
 
-    public String getPollName() {
+    public String getName() {
         return this.pollName;
     }
 
-    public void setPollName(String newName) {
+    public void setName(String newName) {
         this.pollName = newName;
     }
 
@@ -67,11 +64,11 @@ public class Poll {
         this.description = description;
     }
 
-    public String getPollResult() {
+    public String getResult() {
         return pollResult;
     }
 
-    public void setPollResult(String pollResult) {
+    public void setResult(String pollResult) {
         this.pollResult = pollResult;
     }
 
@@ -81,6 +78,22 @@ public class Poll {
 
     public void setVote(Vote vote) {
         this.votes.add(vote);
+        updateResult();
+    }
+
+    private void updateResult() {
+        int yes = 0;
+        int no = 0;
+        for (Vote vote : this.votes) {
+            // Todo: update result of pollResult. We need to potentially use a HashMap to make things efficient.
+            if (vote.getVote() == "yes") {
+                yes++;
+            }
+            else if (vote.getVote() == "no") {
+                no++;
+            }
+        }
+        this.pollResult = String.format("{yes: \"%s\", no: \"%s\"}", yes, no);
     }
 
 }

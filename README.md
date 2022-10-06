@@ -1,3 +1,3 @@
 # DAT250_Project
 
-To find the code for Assignment B, navigate to the Assignments/AssignmentB folder.
+To find the code for Assignment C, navigate to the Assignments/AssignmentB-C folder.

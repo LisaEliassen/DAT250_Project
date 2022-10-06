@@ -1,4 +1,6 @@
-package no.hvl.dat250.jpa.assignmentB;
+package no.hvl.dat250.jpa.assignmentB.daos;
+
+import no.hvl.dat250.jpa.assignmentB.feedapp.IOTDevice;
 
 import java.util.ArrayList;
 import java.util.List;

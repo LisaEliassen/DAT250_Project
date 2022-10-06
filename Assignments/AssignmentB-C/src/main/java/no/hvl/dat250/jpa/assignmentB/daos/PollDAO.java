@@ -1,4 +1,7 @@
-package no.hvl.dat250.jpa.assignmentB;
+package no.hvl.dat250.jpa.assignmentB.daos;
+
+import no.hvl.dat250.jpa.assignmentB.feedapp.Poll;
+import no.hvl.dat250.jpa.assignmentB.feedapp.Vote;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;

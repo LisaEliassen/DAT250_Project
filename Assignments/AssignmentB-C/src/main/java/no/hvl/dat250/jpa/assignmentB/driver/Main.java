@@ -1,6 +1,9 @@
 package no.hvl.dat250.jpa.assignmentB.driver;
 
-import no.hvl.dat250.jpa.assignmentB.*;
+import no.hvl.dat250.jpa.assignmentB.feedapp.FeedAppUser;
+import no.hvl.dat250.jpa.assignmentB.feedapp.IOTDevice;
+import no.hvl.dat250.jpa.assignmentB.feedapp.Poll;
+import no.hvl.dat250.jpa.assignmentB.feedapp.Vote;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

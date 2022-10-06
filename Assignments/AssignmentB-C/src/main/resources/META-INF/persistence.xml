@@ -4,10 +4,10 @@
              version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="AssignmentB" transaction-type="RESOURCE_LOCAL">
 
-        <class>no.hvl.dat250.jpa.assignmentB.Poll</class>
-        <class>no.hvl.dat250.jpa.assignmentB.FeedAppUser</class>
-        <class>no.hvl.dat250.jpa.assignmentB.Vote</class>
-        <class>no.hvl.dat250.jpa.assignmentB.IOTDevice</class>
+        <class>no.hvl.dat250.jpa.assignmentB.feedapp.Poll</class>
+        <class>no.hvl.dat250.jpa.assignmentB.feedapp.FeedAppUser</class>
+        <class>no.hvl.dat250.jpa.assignmentB.feedapp.Vote</class>
+        <class>no.hvl.dat250.jpa.assignmentB.feedapp.IOTDevice</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>

@@ -1,4 +1,8 @@
-package no.hvl.dat250.jpa.assignmentB;
+package no.hvl.dat250.jpa.assignmentB.feedapp;
+
+import no.hvl.dat250.jpa.assignmentB.feedapp.FeedAppUser;
+import no.hvl.dat250.jpa.assignmentB.feedapp.IOTDevice;
+import no.hvl.dat250.jpa.assignmentB.feedapp.Poll;
 
 import javax.persistence.*;
 

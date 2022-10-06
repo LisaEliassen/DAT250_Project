@@ -1,8 +1,9 @@
-package no.hvl.dat250.jpa.assignmentB;
+package no.hvl.dat250.jpa.assignmentB.daos;
+
+import no.hvl.dat250.jpa.assignmentB.feedapp.FeedAppUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class FeedAppUserDAO {
     private List<FeedAppUser> users;

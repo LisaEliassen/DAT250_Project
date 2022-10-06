@@ -1,6 +1,8 @@
-package no.hvl.dat250.jpa.assignmentB;
+package no.hvl.dat250.jpa.assignmentB.feedapp;
 
 import com.google.gson.Gson;
+import no.hvl.dat250.jpa.assignmentB.daos.PollDAO;
+
 import static spark.Spark.*;
 
 public class RestAPI {

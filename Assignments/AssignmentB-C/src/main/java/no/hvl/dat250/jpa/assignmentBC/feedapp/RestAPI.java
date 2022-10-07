@@ -1,12 +1,12 @@
-package no.hvl.dat250.jpa.assignmentB.feedapp;
+package no.hvl.dat250.jpa.assignmentBC.feedapp;
 
 import com.google.gson.Gson;
-import no.hvl.dat250.jpa.assignmentB.daos.PollDAO;
+import no.hvl.dat250.jpa.assignmentBC.daos.PollDAO;
+import no.hvl.dat250.jpa.assignmentBC.daos.VoteDAO;
 
 import static spark.Spark.*;
 
 public class RestAPI {
-
     public static void main(String[] args) {
         if (args.length > 0) {
             port(Integer.parseInt(args[0]));
@@ -18,6 +18,7 @@ public class RestAPI {
 
         final PollDAO pollDAO = new PollDAO();
         Gson gson = new Gson();
+
 
         // ---------------------
         //        POLLS
@@ -43,7 +44,7 @@ public class RestAPI {
                 if (poll != null) {
                     return gson.toJson(poll);
                 }
-                return String.format("Poll with the id  \"%s\" not found!", id);
+                return String.format("Poll with the id \"%s\" not found!", id);
             }
             else {
                 return String.format("The id \"%s\" is not a number!", id);
@@ -64,11 +65,11 @@ public class RestAPI {
 
             // check if id is a number
             if (isNumber(id)) {
-                Poll editedTodo = gson.fromJson(request.body(), Poll.class);
-                editedTodo = pollDAO.update(editedTodo, Long.valueOf(id));
+                Poll editedPoll = gson.fromJson(request.body(), Poll.class);
+                editedPoll = pollDAO.update(editedPoll, Long.valueOf(id));
 
-                if (editedTodo != null) {
-                    return gson.toJson(editedTodo);
+                if (editedPoll != null) {
+                    return gson.toJson(editedPoll);
                 }
                 else {
                     return gson.toJson("Poll not found or error in edit");
@@ -89,7 +90,7 @@ public class RestAPI {
                     return gson.toJson("Success!");
                 }
                 else {
-                    return String.format("Poll with the id  \"%s\" not found!", id);
+                    return String.format("Poll with the id \"%s\" not found!", id);
                 }
             }
             else {
@@ -97,19 +98,11 @@ public class RestAPI {
             }
         });
 
+
         // ---------------------
-        //        VOTES
+        //        RESULT
         // ---------------------
 
-        // Create/POST for vote:
-        post("/vote", (request, response) -> {
-            response.type("application/json");
-
-            Vote vote = gson.fromJson(request.body(), Vote.class);
-            pollDAO.addVote(vote);
-
-            return gson.toJson(vote);
-        });
 
         // Read/GET, result for poll with Poll-id:
         get("/result/:id", (request, response) -> {
@@ -121,11 +114,28 @@ public class RestAPI {
                 if (poll != null) {
                     return gson.toJson(poll.getResult());
                 }
-                return String.format("Poll with the id  \"%s\" not found!", id);
+                return String.format("Poll with the id \"%s\" not found!", id);
             }
             else {
                 return String.format("The id \"%s\" is not a number!", id);
             }
+        });
+
+
+        // ---------------------
+        //        VOTES
+        // ---------------------
+
+        VoteDAO voteDAO = new VoteDAO();
+
+        // Create/POST for vote:
+        post("/vote", (request, response) -> {
+            response.type("application/json");
+
+            Vote vote = gson.fromJson(request.body(), Vote.class);
+            pollDAO.addVote(vote);
+
+            return gson.toJson(vote);
         });
 
         // Read/GET, one vote by Vote-id:
@@ -135,11 +145,11 @@ public class RestAPI {
             String id = request.params(":id");
 
             if (isNumber(id)) { // check if id is a number
-                Poll poll = pollDAO.getPollByID(Long.valueOf(id));
-                if (poll != null) {
-                    return gson.toJson(poll);
+                Vote vote = voteDAO.getVoteByID(Long.valueOf(id));
+                if (vote != null) {
+                    return gson.toJson(vote);
                 }
-                return String.format("Vote with the id  \"%s\" not found!", id);
+                return String.format("Vote with the id \"%s\" not found!", id);
             }
             else {
                 return String.format("The id \"%s\" is not a number!", id);
@@ -153,11 +163,11 @@ public class RestAPI {
 
             // check if id is a number
             if (isNumber(id)) {
-                Poll editedTodo = gson.fromJson(request.body(), Poll.class);
-                editedTodo = pollDAO.update(editedTodo, Long.valueOf(id));
+                Vote editedVote = gson.fromJson(request.body(), Vote.class);
+                editedVote = voteDAO.update(editedVote, Long.valueOf(id));
 
-                if (editedTodo != null) {
-                    return gson.toJson(editedTodo);
+                if (editedVote != null) {
+                    return gson.toJson(editedVote);
                 }
                 else {
                     return gson.toJson("Vote not found or error in edit");
@@ -173,17 +183,18 @@ public class RestAPI {
             response.type("application/json");
             String id = request.params(":id");
             if(isNumber(id)) {
-                Poll poll = pollDAO.delete(Long.valueOf(id));
-                if (poll != null) {
+                Vote vote = voteDAO.delete(Long.valueOf(id));
+                if (vote != null) {
                     return gson.toJson("Success!");
                 }
                 else {
-                    return String.format("Vote with the id  \"%s\" not found!", id);
+                    return String.format("Vote with the id \"%s\" not found!", id);
                 }
             }
             else {
                 return String.format("The id \"%s\" is not a number!", id);
             }
+
         });
     }
 

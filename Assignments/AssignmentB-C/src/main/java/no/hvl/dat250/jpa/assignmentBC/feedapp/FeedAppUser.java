@@ -1,4 +1,4 @@
-package no.hvl.dat250.jpa.assignmentB.feedapp;
+package no.hvl.dat250.jpa.assignmentBC.feedapp;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -25,14 +25,14 @@ public class FeedAppUser {
     public FeedAppUser() {
     }
     public FeedAppUser(Long id) {
-        this.setUserID(id);
+        this.setID(id);
     }
 
-    public Long getUserID() {
+    public Long getID() {
         return userID;
     }
 
-    public void setUserID(Long userID) {
+    public void setID(Long userID) {
         this.userID = userID;
     }
 
@@ -68,20 +68,28 @@ public class FeedAppUser {
         this.admin = admin;
     }
 
-    public Set<Poll> getPoll() {
+    public Set<Poll> getPolls() {
         return polls;
     }
 
-    public void setPoll(Poll poll) {
+    public void addPoll(Poll poll) {
         this.polls.add(poll);
     }
 
-    public Set<Vote> getVote() {
+    public void setPolls(Set<Poll> polls) {
+        this.polls = polls;
+    }
+
+    public Set<Vote> getVotes() {
         return votes;
     }
 
-    public void setVote(Vote vote) {
+    public void addVote(Vote vote) {
         this.votes.add(vote);
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
     }
 
     public String getPassword() {

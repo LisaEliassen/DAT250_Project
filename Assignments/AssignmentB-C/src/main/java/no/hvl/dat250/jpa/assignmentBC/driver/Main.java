@@ -1,9 +1,9 @@
-package no.hvl.dat250.jpa.assignmentB.driver;
+package no.hvl.dat250.jpa.assignmentBC.driver;
 
-import no.hvl.dat250.jpa.assignmentB.feedapp.FeedAppUser;
-import no.hvl.dat250.jpa.assignmentB.feedapp.IOTDevice;
-import no.hvl.dat250.jpa.assignmentB.feedapp.Poll;
-import no.hvl.dat250.jpa.assignmentB.feedapp.Vote;
+import no.hvl.dat250.jpa.assignmentBC.feedapp.FeedAppUser;
+import no.hvl.dat250.jpa.assignmentBC.feedapp.IOTDevice;
+import no.hvl.dat250.jpa.assignmentBC.feedapp.Poll;
+import no.hvl.dat250.jpa.assignmentBC.feedapp.Vote;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,7 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class Main {
-    public static final String PERSISTENCE_UNIT_NAME = "AssignmentB";
+    public static final String PERSISTENCE_UNIT_NAME = "AssignmentB-C";
 
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -58,7 +58,7 @@ public class Main {
 
         //first IoT device
         IOTDevice iotDevice = new IOTDevice();
-        iotDevice.setDeviceID(5L);
+        iotDevice.setID(5L);
 
         //first poll owned by feedAppUser1
         Poll poll1 = new Poll();
@@ -70,7 +70,7 @@ public class Main {
         poll1.setResult("Dog wins");
 
         //add the poll to it's owner
-        feedAppUser1.setPoll(poll1);
+        feedAppUser1.addPoll(poll1);
 
         //first vote for poll1 (USER2)
         Vote vote1Poll1 = new Vote();
@@ -78,8 +78,8 @@ public class Main {
         vote1Poll1.setVote("Dog");
         vote1Poll1.setUser(feedAppUser2);
 
-        poll1.setVote(vote1Poll1);
-        feedAppUser2.setVote(vote1Poll1);
+        poll1.addVote(vote1Poll1);
+        feedAppUser2.addVote(vote1Poll1);
 
         //second vote for poll1 (IOT)
         Vote vote2Poll1 = new Vote();
@@ -87,7 +87,7 @@ public class Main {
         vote2Poll1.setVote("Dog");
         vote2Poll1.setIot(iotDevice);
 
-        poll1.setVote(vote2Poll1);
+        poll1.addVote(vote2Poll1);
         iotDevice.setVote(vote2Poll1);
 
         tx.commit();

@@ -1,4 +1,4 @@
-package no.hvl.dat250.jpa.assignmentB.feedapp;
+package no.hvl.dat250.jpa.assignmentBC.feedapp;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -76,9 +76,17 @@ public class Poll {
         return votes;
     }
 
-    public void setVote(Vote vote) {
+    public void addVote(Vote vote) {
         this.votes.add(vote);
         updateResult();
+    }
+
+    public Set<Vote> getAllVotes() {
+         return this.votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
     }
 
     private void updateResult() {

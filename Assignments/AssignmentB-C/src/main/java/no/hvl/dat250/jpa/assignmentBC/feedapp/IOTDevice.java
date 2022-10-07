@@ -1,4 +1,4 @@
-package no.hvl.dat250.jpa.assignmentB.feedapp;
+package no.hvl.dat250.jpa.assignmentBC.feedapp;
 
 import javax.persistence.*;
 
@@ -15,11 +15,11 @@ public class IOTDevice {
     @OneToOne
     private Vote vote;
 
-    public Long getDeviceID() {
+    public Long getID() {
         return deviceID;
     }
 
-    public void setDeviceID(Long deviceID) {
+    public void setID(Long deviceID) {
         this.deviceID = deviceID;
     }
 

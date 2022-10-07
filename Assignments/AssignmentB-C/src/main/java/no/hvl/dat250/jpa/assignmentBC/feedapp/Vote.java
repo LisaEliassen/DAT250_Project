@@ -1,8 +1,4 @@
-package no.hvl.dat250.jpa.assignmentB.feedapp;
-
-import no.hvl.dat250.jpa.assignmentB.feedapp.FeedAppUser;
-import no.hvl.dat250.jpa.assignmentB.feedapp.IOTDevice;
-import no.hvl.dat250.jpa.assignmentB.feedapp.Poll;
+package no.hvl.dat250.jpa.assignmentBC.feedapp;
 
 import javax.persistence.*;
 
@@ -49,11 +45,11 @@ public class Vote {
         this.poll = poll;
     }
 
-    public Long getVoteID() {
+    public Long getID() {
         return voteID;
     }
 
-    public void setVoteID(Long voteID) {
+    public void setID(Long voteID) {
         this.voteID = voteID;
     }
 

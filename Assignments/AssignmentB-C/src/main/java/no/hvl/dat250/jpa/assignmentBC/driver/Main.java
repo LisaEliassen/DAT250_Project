@@ -63,31 +63,31 @@ public class Main {
         //first poll owned by feedAppUser1
         Poll poll1 = new Poll();
         poll1.setID(195245L); //the id you need to search for this poll
-        poll1.setUser(feedAppUser1);
+        poll1.setUser(feedAppUser1.getID());
         poll1.setName("CATS OR DOGS?"); //the name you need to search for this poll
         poll1.setCategory("Animals");
         poll1.setDescription("Poll to figure out which animal (cat or dog) people like the best.");
         poll1.setResult("Dog wins");
 
         //add the poll to it's owner
-        feedAppUser1.addPoll(poll1);
+        feedAppUser1.addPoll(poll1.getID());
 
         //first vote for poll1 (USER2)
         Vote vote1Poll1 = new Vote();
-        vote1Poll1.setPoll(poll1);
+        vote1Poll1.setPoll(poll1.getID());
         vote1Poll1.setVote("Dog");
-        vote1Poll1.setUser(feedAppUser2);
+        vote1Poll1.setUser(feedAppUser2.getID());
 
-        poll1.addVote(vote1Poll1);
-        feedAppUser2.addVote(vote1Poll1);
+        poll1.addVote(vote1Poll1.getID());
+        feedAppUser2.addVote(vote1Poll1.getID());
 
         //second vote for poll1 (IOT)
         Vote vote2Poll1 = new Vote();
-        vote2Poll1.setPoll(poll1);
+        vote2Poll1.setPoll(poll1.getID());
         vote2Poll1.setVote("Dog");
-        vote2Poll1.setIot(iotDevice);
+        //vote2Poll1.setIot(iotDevice);
 
-        poll1.addVote(vote2Poll1);
+        poll1.addVote(vote2Poll1.getID());
         iotDevice.setVote(vote2Poll1);
 
         tx.commit();

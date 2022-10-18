@@ -22,9 +22,9 @@ public class VoteDAO {
     private void executeInsideTransaction(Consumer<EntityManager> action) {
         EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
+            //tx.begin();
             action.accept(em);
-            tx.commit();
+            //tx.commit();
         }
         catch (RuntimeException e) {
             tx.rollback();

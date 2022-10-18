@@ -1,6 +1,7 @@
 package no.hvl.dat250.jpa.assignmentBC.model;
 
 import javax.persistence.*;
+import javax.print.attribute.standard.JobImpressions;
 
 @Entity
 public class IOTDevice {
@@ -9,10 +10,10 @@ public class IOTDevice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deviceID;
 
-    @OneToOne
+    @OneToOne(mappedBy="pollID")
     private Poll poll;
 
-    @OneToOne
+    @OneToOne(mappedBy="voteID")
     private Vote vote;
 
     public Long getID() {

@@ -1,7 +1,9 @@
 package no.hvl.dat250.jpa.assignmentBC.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,13 +18,15 @@ public class Poll {
 
     @ManyToOne(targetEntity = FeedAppUser.class)
     @JoinColumn(name = "user_ID")
-    private FeedAppUser feedAppUser;
+    private Long userID;
 
-    @OneToMany(mappedBy = "poll")
-    private Set<Vote> votes = new HashSet<>();
-
-    @OneToOne(mappedBy = "poll")
-    private IOTDevice iot;
+    //@OneToMany(mappedBy = "pollID")
+    @ElementCollection
+    private List<Long> votes = new ArrayList<>();
+    /*
+    @OneToOne(mappedBy = "deviceID")
+    //@PrimaryKeyJoinColumn(name="deviceID", referencedColumnName="deviceID")
+    private IOTDevice iotID;*/
 
     public Long getID() {
         return pollID;
@@ -40,12 +44,12 @@ public class Poll {
         this.pollName = newName;
     }
 
-    public FeedAppUser getUser() {
-        return feedAppUser;
+    public Long getUser() {
+        return this.userID;
     }
 
-    public void setUser(FeedAppUser feedAppUser) {
-        this.feedAppUser = feedAppUser;
+    public void setUser(Long userID) {
+        this.userID = userID;
     }
 
     public String getCategory() {
@@ -72,27 +76,28 @@ public class Poll {
         this.pollResult = pollResult;
     }
 
-    public Set<Vote> getVotes() {
+    public List<Long> getVotes() {
         return votes;
     }
 
-    public void addVote(Vote vote) {
-        this.votes.add(vote);
-        updateResult();
+    public void addVote(Long voteID) {
+        this.votes.add(voteID);
+        //updateResult();
     }
 
-    public Set<Vote> getAllVotes() {
+    public List<Long> getAllVotes() {
          return this.votes;
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(List<Long> votes) {
         this.votes = votes;
     }
 
     private void updateResult() {
         int yes = 0;
         int no = 0;
-        for (Vote vote : this.votes) {
+        /*
+        for (Long voteID : this.votes) {
             // Todo: update result of pollResult. We need to potentially use a HashMap to make things efficient.
             if (vote.getVote() == "yes") {
                 yes++;
@@ -100,7 +105,7 @@ public class Poll {
             else if (vote.getVote() == "no") {
                 no++;
             }
-        }
+        }*/
         this.pollResult = String.format("yes: \"%s\", no: \"%s\"", yes, no);
     }
 

@@ -134,7 +134,8 @@ public class RestAPI {
             response.type("application/json");
 
             Vote vote = gson.fromJson(request.body(), Vote.class);
-            pollDAO.addVote(vote);
+            vote = voteDAO.create(vote);
+            pollDAO.addVote(vote.getID(), vote.getPoll());
 
             return gson.toJson(vote);
         });

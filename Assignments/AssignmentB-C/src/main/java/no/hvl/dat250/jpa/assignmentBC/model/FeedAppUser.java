@@ -1,7 +1,9 @@
 package no.hvl.dat250.jpa.assignmentBC.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,14 +18,21 @@ public class FeedAppUser {
 
     private String password;
 
-    @OneToMany(mappedBy = "feedAppUser")
-    private Set<Poll> polls = new HashSet<>();
+    /* @OneToMany(mappedBy = "feedAppUser")
+     private Set<Poll> polls = new HashSet<>();*/
+    @ElementCollection
+    //@OneToMany(mappedBy = "feedAppUser")
+    private List<Long> polls = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feedAppUser")
-    private Set<Vote> votes = new HashSet<>();
+    /*@OneToMany(mappedBy = "userID")
+    private Set<Vote> votes = new HashSet<>();*/
+    @ElementCollection
+    //@OneToMany(mappedBy = "userID")
+    private List<Long> votes = new ArrayList<>();
 
     public FeedAppUser() {
     }
+
     public FeedAppUser(Long id) {
         this.setID(id);
     }
@@ -68,27 +77,27 @@ public class FeedAppUser {
         this.admin = admin;
     }
 
-    public Set<Poll> getPolls() {
+    public List<Long> getPolls() {
         return polls;
     }
 
-    public void addPoll(Poll poll) {
-        this.polls.add(poll);
+    public void addPoll(Long pollID) {
+        this.polls.add(pollID);
     }
 
-    public void setPolls(Set<Poll> polls) {
+    public void setPolls(List<Long> polls) {
         this.polls = polls;
     }
 
-    public Set<Vote> getVotes() {
+    public List<Long> getVotes() {
         return votes;
     }
 
-    public void addVote(Vote vote) {
-        this.votes.add(vote);
+    public void addVote(Long voteID) {
+        this.votes.add(voteID);
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(List<Long> votes) {
         this.votes = votes;
     }
 

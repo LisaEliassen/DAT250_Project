@@ -9,17 +9,28 @@ public class Vote {
     private Long voteID;
 
     private String vote;
+    /*
+    @ManyToOne(targetEntity = FeedAppUser.class)
+    @JoinColumn(name = "user_ID")
+    private FeedAppUser feedAppUser;*/
 
     @ManyToOne(targetEntity = FeedAppUser.class)
     @JoinColumn(name = "user_ID")
-    private FeedAppUser feedAppUser;
+    private Long userID;
 
+
+    /*
     @ManyToOne(targetEntity = Poll.class)
     @JoinColumn(name = "poll_ID")
     private Poll poll;
-
+    */
+    @ManyToOne(targetEntity = Poll.class)
+    @JoinColumn(name = "poll_ID")
+    private Long pollID;
+    /*
     @OneToOne(mappedBy = "vote")
     private IOTDevice iot;
+     */
 
     public String getVote() {
         return vote;
@@ -29,20 +40,20 @@ public class Vote {
         this.vote = vote;
     }
 
-    public FeedAppUser getUser() {
-        return feedAppUser;
+    public Long getUser() {
+        return userID;
     }
 
-    public void setUser(FeedAppUser feedAppUser) {
-        this.feedAppUser = feedAppUser;
+    public void setUser(Long userID) {
+        this.userID = userID;
     }
 
-    public Poll getPoll() {
-        return poll;
+    public Long getPoll() {
+        return pollID;
     }
 
-    public void setPoll(Poll poll) {
-        this.poll = poll;
+    public void setPoll(Long pollID) {
+        this.pollID = pollID;
     }
 
     public Long getID() {
@@ -53,11 +64,12 @@ public class Vote {
         this.voteID = voteID;
     }
 
+    /*
     public IOTDevice getIot() {
         return iot;
     }
 
     public void setIot(IOTDevice iot) {
         this.iot = iot;
-    }
+    }*/
 }

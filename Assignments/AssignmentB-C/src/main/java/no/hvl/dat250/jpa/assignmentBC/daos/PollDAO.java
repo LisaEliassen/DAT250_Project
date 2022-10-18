@@ -12,23 +12,32 @@ public class PollDAO {
     private final AtomicLong id_generator;
     public static final String PERSISTENCE_UNIT_NAME = "AssignmentB-C";
     private EntityManager em;
+    EntityTransaction tx;
+
 
     public PollDAO() {
         this.id_generator = new AtomicLong();
-
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         em = factory.createEntityManager();
+        if (em.isOpen()) {
+            tx = em.getTransaction();
+        }
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {
-        EntityTransaction tx = em.getTransaction();
+
+        //em.joinTransaction();
         try {
-            tx.begin();
+            //tx.begin();
             action.accept(em);
-            tx.commit();
+            /*if (tx.isActive()) {
+                tx.commit();
+            }*/
         }
         catch (RuntimeException e) {
-            tx.rollback();
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
             throw e;
         }
     }
@@ -42,9 +51,10 @@ public class PollDAO {
         return poll;
     }
 
-    public void addVote(Vote vote) {
-        if (vote.getPoll().getID() != null) {
-            vote.getPoll().addVote(vote);
+    public void addVote(Long voteID, Long pollID) {
+        if (getPollByID(pollID) != null) {
+            this.getPollByID(pollID).addVote(voteID);
+            //vote.getPoll().addVote(vote);
         }
     }
 

@@ -1,13 +1,9 @@
 package no.hvl.dat250.jpa.assignmentBC.daos;
 
-import no.hvl.dat250.jpa.assignmentBC.feedapp.Poll;
-import no.hvl.dat250.jpa.assignmentBC.feedapp.Vote;
+import no.hvl.dat250.jpa.assignmentBC.model.Vote;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 

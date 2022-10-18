@@ -1,9 +1,9 @@
 package no.hvl.dat250.jpa.assignmentBC.driver;
 
-import no.hvl.dat250.jpa.assignmentBC.feedapp.FeedAppUser;
-import no.hvl.dat250.jpa.assignmentBC.feedapp.IOTDevice;
-import no.hvl.dat250.jpa.assignmentBC.feedapp.Poll;
-import no.hvl.dat250.jpa.assignmentBC.feedapp.Vote;
+import no.hvl.dat250.jpa.assignmentBC.model.FeedAppUser;
+import no.hvl.dat250.jpa.assignmentBC.model.IOTDevice;
+import no.hvl.dat250.jpa.assignmentBC.model.Poll;
+import no.hvl.dat250.jpa.assignmentBC.model.Vote;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

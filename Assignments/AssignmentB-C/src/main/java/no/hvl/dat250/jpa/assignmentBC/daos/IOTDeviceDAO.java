@@ -1,10 +1,8 @@
 package no.hvl.dat250.jpa.assignmentBC.daos;
 
-import no.hvl.dat250.jpa.assignmentBC.feedapp.FeedAppUser;
-import no.hvl.dat250.jpa.assignmentBC.feedapp.IOTDevice;
+import no.hvl.dat250.jpa.assignmentBC.model.IOTDevice;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;

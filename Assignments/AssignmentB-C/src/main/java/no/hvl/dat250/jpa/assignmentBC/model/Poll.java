@@ -1,4 +1,4 @@
-package no.hvl.dat250.jpa.assignmentBC.feedapp;
+package no.hvl.dat250.jpa.assignmentBC.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -101,7 +101,7 @@ public class Poll {
                 no++;
             }
         }
-        this.pollResult = String.format("{yes: \"%s\", no: \"%s\"}", yes, no);
+        this.pollResult = String.format("yes: \"%s\", no: \"%s\"", yes, no);
     }
 
 }

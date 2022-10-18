@@ -1,6 +1,7 @@
-package no.hvl.dat250.jpa.assignmentBC.feedapp;
+package no.hvl.dat250.jpa.assignmentBC.model;
 
 import com.google.gson.Gson;
+import no.hvl.dat250.jpa.assignmentBC.daos.FeedAppUserDAO;
 import no.hvl.dat250.jpa.assignmentBC.daos.PollDAO;
 import no.hvl.dat250.jpa.assignmentBC.daos.VoteDAO;
 
@@ -195,6 +196,79 @@ public class RestAPI {
                 return String.format("The id \"%s\" is not a number!", id);
             }
 
+        });
+
+        // ---------------------
+        //        USERS
+        // ---------------------
+
+        FeedAppUserDAO userDAO = new FeedAppUserDAO();
+
+        // POST Create user / register user
+        post("/user", (request, response) -> {
+            response.type("application/json");
+
+            FeedAppUser user = gson.fromJson(request.body(), FeedAppUser.class);
+            user =userDAO.create(user);
+
+            return gson.toJson(user);
+        });
+
+        // GET user by id
+        get("/user/:id", (request, response) -> {
+            response.type("application/json");
+            String id = request.params(":id");
+
+            if (isNumber(id)) { // check if id is a number
+                FeedAppUser user = userDAO.getUserByID(Long.valueOf(id));
+                if (user != null) {
+                    return gson.toJson(user);
+                }
+                return String.format("User with the id \"%s\" not found!", id);
+            }
+            else {
+                return String.format("The id \"%s\" is not a number!", id);
+            }
+        });
+
+        // PUT / update user
+        put("/user/:id", (request, response) -> {
+            response.type("application/json");
+            String id = request.params(":id");
+
+            // check if id is a number
+            if (isNumber(id)) {
+                FeedAppUser editedUser = gson.fromJson(request.body(), FeedAppUser.class);
+                editedUser = userDAO.update(editedUser, Long.valueOf(id));
+
+                if (editedUser != null) {
+                    return gson.toJson(editedUser);
+                }
+                else {
+                    return gson.toJson("User not found or error in edit");
+                }
+            }
+            else {
+                return String.format("The id \"%s\" is not a number!", id);
+            }
+        });
+
+        // DELETE user
+        delete("/user/:id", (request, response) -> {
+            response.type("application/json");
+            String id = request.params(":id");
+            if(isNumber(id)) {
+                FeedAppUser user = userDAO.delete(Long.valueOf(id));
+                if (user != null) {
+                    return gson.toJson("Success!");
+                }
+                else {
+                    return String.format("User with the id \"%s\" not found!", id);
+                }
+            }
+            else {
+                return String.format("The id \"%s\" is not a number!", id);
+            }
         });
     }
 

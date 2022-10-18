@@ -1,4 +1,4 @@
-package no.hvl.dat250.jpa.assignmentBC.feedapp;
+package no.hvl.dat250.jpa.assignmentBC.model;
 
 import javax.persistence.*;
 

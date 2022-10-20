@@ -21,6 +21,7 @@ public class FeedAppUserDAO {
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {
+        // Todo: Find a way to use EntityTransaction.commit(), as this is needed to put data into database.
         EntityTransaction tx = em.getTransaction();
         try {
             //tx.begin();

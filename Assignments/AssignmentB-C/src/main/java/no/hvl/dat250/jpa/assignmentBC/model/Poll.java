@@ -20,13 +20,13 @@ public class Poll {
     @JoinColumn(name = "user_ID")
     private Long userID;
 
-    //@OneToMany(mappedBy = "pollID")
     @ElementCollection
     private List<Long> votes = new ArrayList<>();
-    /*
-    @OneToOne(mappedBy = "deviceID")
+
+    @OneToOne(targetEntity = IOTDevice.class)
+    //@JoinColumn(name = "device_ID")
     //@PrimaryKeyJoinColumn(name="deviceID", referencedColumnName="deviceID")
-    private IOTDevice iotID;*/
+    private Long iotID;
 
     public Long getID() {
         return pollID;

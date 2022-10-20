@@ -88,7 +88,7 @@ public class Main {
         //vote2Poll1.setIot(iotDevice);
 
         poll1.addVote(vote2Poll1.getID());
-        iotDevice.setVote(vote2Poll1);
+        iotDevice.addVote(vote2Poll1.getID());
 
         tx.commit();
 

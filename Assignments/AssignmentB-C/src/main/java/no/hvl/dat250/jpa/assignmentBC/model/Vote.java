@@ -18,7 +18,6 @@ public class Vote {
     @JoinColumn(name = "user_ID")
     private Long userID;
 
-
     /*
     @ManyToOne(targetEntity = Poll.class)
     @JoinColumn(name = "poll_ID")
@@ -29,8 +28,7 @@ public class Vote {
     private Long pollID;
     /*
     @OneToOne(mappedBy = "vote")
-    private IOTDevice iot;
-     */
+    private IOTDevice iot; */
 
     public String getVote() {
         return vote;

@@ -25,7 +25,7 @@ public class PollDAO {
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {
-
+        // Todo: Find a way to use EntityTransaction.commit(), as this is needed to put data into database.
         //em.joinTransaction();
         try {
             //tx.begin();

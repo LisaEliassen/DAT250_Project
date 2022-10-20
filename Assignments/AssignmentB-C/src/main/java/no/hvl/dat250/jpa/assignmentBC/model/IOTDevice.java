@@ -2,6 +2,8 @@ package no.hvl.dat250.jpa.assignmentBC.model;
 
 import javax.persistence.*;
 import javax.print.attribute.standard.JobImpressions;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class IOTDevice {
@@ -10,11 +12,15 @@ public class IOTDevice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deviceID;
 
-    @OneToOne(mappedBy="pollID")
-    private Poll poll;
+    @OneToOne(targetEntity = Poll.class)
+    private Long pollID;
 
+    /*
     @OneToOne(mappedBy="voteID")
     private Vote vote;
+     */
+    @ElementCollection
+    private List<Long> votes = new ArrayList<>();
 
     public Long getID() {
         return deviceID;
@@ -24,19 +30,23 @@ public class IOTDevice {
         this.deviceID = deviceID;
     }
 
-    public Poll getPoll() {
-        return poll;
+    public Long getPoll() {
+        return pollID;
     }
 
-    public void setPoll(Poll poll) {
-        this.poll = poll;
+    public void setPoll(Long pollID) {
+        this.pollID = pollID;
     }
 
-    public Vote getVote() {
-        return vote;
+    public List<Long> getVotes() {
+        return this.votes;
     }
 
-    public void setVote(Vote vote) {
-        this.vote = vote;
+    public void setVote(List<Long> votes) {
+        this.votes = votes;
+    }
+
+    public void addVote(Long voteID) {
+        this.votes.add(voteID);
     }
 }

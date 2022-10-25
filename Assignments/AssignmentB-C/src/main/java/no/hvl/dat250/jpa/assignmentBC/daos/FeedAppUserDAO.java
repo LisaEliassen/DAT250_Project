@@ -11,57 +11,94 @@ public class FeedAppUserDAO {
 
     private final AtomicLong id_generator;
     public static final String PERSISTENCE_UNIT_NAME = "AssignmentB-C";
-    private EntityManager em;
+    private EntityManagerFactory factory;
 
     public FeedAppUserDAO() {
         this.id_generator = new AtomicLong();
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        em = factory.createEntityManager();
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     }
 
-    private void executeInsideTransaction(Consumer<EntityManager> action) {
-        // Todo: Find a way to use EntityTransaction.commit(), as this is needed to put data into database.
+    private void executeInsideTransaction(EntityManager em, Consumer<EntityManager> action) {
         EntityTransaction tx = em.getTransaction();
+
         try {
-            //tx.begin();
+            tx.begin();
             action.accept(em);
-            //tx.commit();
+            tx.commit();
         }
-        catch (RuntimeException e) {
+        catch (Throwable e) {
+            e.printStackTrace();
             tx.rollback();
-            throw e;
+        }
+        finally {
+            em.close();
         }
     }
 
     public FeedAppUser create(FeedAppUser user) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
         if(user.getID() == null) {
             Long ID = this.id_generator.incrementAndGet();
             user.setID(ID);
         }
-        executeInsideTransaction(em -> em.persist(user));
+        //executeInsideTransaction(em, em -> em.persist(user));
+        try {
+            tx.begin();
+            em.persist(user);
+            tx.commit();
+        }
+        catch (Throwable e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+        finally {
+            em.close();
+        }
         return user;
     }
 
     public List<FeedAppUser> getAllUsers() {
+        EntityManager em = factory.createEntityManager();
         Query query = em.createQuery("SELECT u FROM FeedAppUser u");
         return query.getResultList();
     }
 
     public FeedAppUser getUserByID(Long id) {
+        EntityManager em = factory.createEntityManager();
         FeedAppUser user = em.find(FeedAppUser.class, Long.valueOf(id));
         return user;
     }
 
     public FeedAppUser delete(Long id) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         FeedAppUser user = getUserByID(id);
         if (user != null) {
-            executeInsideTransaction(em -> em.remove(user));
+            //executeInsideTransaction(em, em -> em.remove(user));
+            try {
+                tx.begin();
+                em.remove(user);
+                tx.commit();
+            }
+            catch (Throwable e) {
+                e.printStackTrace();
+                tx.rollback();
+            }
+            finally {
+                em.close();
+            }
         }
         return user;
     }
 
     public FeedAppUser update(FeedAppUser user, Long id) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         if (getUserByID(id) != null) {
             FeedAppUser updateUser = getUserByID(id);
             updateUser.setFirstName(user.getFirstName());
@@ -71,7 +108,19 @@ public class FeedAppUserDAO {
             updateUser.setVotes(user.getVotes());
             updateUser.setPassword(user.getPassword());
 
-            executeInsideTransaction(em -> em.merge(updateUser));
+            //executeInsideTransaction(em, em -> em.merge(updateUser));
+            try {
+                tx.begin();
+                em.merge(updateUser);
+                tx.commit();
+            }
+            catch (Throwable e) {
+                e.printStackTrace();
+                tx.rollback();
+            }
+            finally {
+                em.close();
+            }
             return updateUser;
         }
         else {

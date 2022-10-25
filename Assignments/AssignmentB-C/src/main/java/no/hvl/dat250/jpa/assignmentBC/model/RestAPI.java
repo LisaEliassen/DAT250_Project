@@ -18,6 +18,10 @@ public class RestAPI {
         after((req, res) -> res.type("application/json"));
 
         final PollDAO pollDAO = new PollDAO();
+        final FeedAppUserDAO userDAO = new FeedAppUserDAO();
+        final VoteDAO voteDAO = new VoteDAO();
+
+
         Gson gson = new Gson();
 
 
@@ -31,6 +35,10 @@ public class RestAPI {
 
             Poll poll = gson.fromJson(request.body(), Poll.class);
             poll = pollDAO.create(poll);
+            System.out.println(gson.toJson(poll));
+            FeedAppUser user = userDAO.getUserByID(poll.getUser());
+            user.addPoll(poll.getID());
+            userDAO.update(user, user.getID());
 
             return gson.toJson(poll);
         });
@@ -127,8 +135,6 @@ public class RestAPI {
         //        VOTES
         // ---------------------
 
-        VoteDAO voteDAO = new VoteDAO();
-
         // Create/POST for vote:
         post("/vote", (request, response) -> {
             response.type("application/json");
@@ -203,8 +209,6 @@ public class RestAPI {
         //        USERS
         // ---------------------
 
-        FeedAppUserDAO userDAO = new FeedAppUserDAO();
-
         // POST Create user / register user
         post("/user", (request, response) -> {
             response.type("application/json");
@@ -214,6 +218,14 @@ public class RestAPI {
 
             return gson.toJson(user);
         });
+
+        // GET all users
+        get("/users", (request, response) -> {
+            response.type("application/json");
+
+            return gson.toJson(userDAO.getAllUsers());
+        });
+
 
         // GET user by id
         get("/user/:id", (request, response) -> {

@@ -10,61 +10,114 @@ import java.util.function.Consumer;
 public class VoteDAO {
     private final AtomicLong id_generator;
     public static final String PERSISTENCE_UNIT_NAME = "AssignmentB-C";
-    private EntityManager em;
+    private EntityManagerFactory factory;
 
     public VoteDAO() {
         this.id_generator = new AtomicLong();
-
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        em = factory.createEntityManager();
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     }
 
-    private void executeInsideTransaction(Consumer<EntityManager> action) {
-        // Todo: Find a way to use EntityTransaction.commit(), as this is needed to put data into database.
+    private void executeInsideTransaction(EntityManager em, Consumer<EntityManager> action) {
         EntityTransaction tx = em.getTransaction();
+
         try {
-            //tx.begin();
+            tx.begin();
             action.accept(em);
-            //tx.commit();
+            tx.commit();
         }
-        catch (RuntimeException e) {
+        catch (Throwable e) {
+            e.printStackTrace();
             tx.rollback();
-            throw e;
+        }
+        finally {
+            em.close();
         }
     }
 
     public Vote create(Vote vote) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
         if(vote.getID() == null) {
             Long ID = this.id_generator.incrementAndGet();
             vote.setID(ID);
         }
-        executeInsideTransaction(em -> em.persist(vote));
+        //executeInsideTransaction(em, em -> em.persist(vote));
+        try {
+            tx.begin();
+            em.persist(vote);
+            tx.commit();
+        }
+        catch (Throwable e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+        finally {
+            em.close();
+        }
         return vote;
     }
 
     public List<Vote> getAllVotes() {
+        EntityManager em = factory.createEntityManager();
         Query query = em.createQuery("SELECT v FROM Vote v");
         return query.getResultList();
     }
 
     public Vote getVoteByID(Long id) {
+        EntityManager em = factory.createEntityManager();
         Vote vote = em.find(Vote.class, Long.valueOf(id));
         return vote;
     }
 
     public Vote delete(Long id) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Vote vote = getVoteByID(id);
         if (vote != null) {
-            executeInsideTransaction(em -> em.remove(vote));
+            //executeInsideTransaction(em, em -> em.remove(vote));
+            try {
+                tx.begin();
+                em.remove(vote);
+                tx.commit();
+            }
+            catch (Throwable e) {
+                e.printStackTrace();
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
+            }
+            finally {
+                em.close();
+            }
         }
         return vote;
     }
 
     public Vote update(Vote vote, Long id) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         if (getVoteByID(id) != null) {
             Vote updateVote = getVoteByID(id);
             updateVote.setVote(vote.getVote());
-            executeInsideTransaction(em -> em.merge(updateVote));
+            //executeInsideTransaction(em, em -> em.merge(updateVote));
+            try {
+                tx.begin();
+                em.merge(updateVote);
+                tx.commit();
+            }
+            catch (Throwable e) {
+                e.printStackTrace();
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
+            }
+            finally {
+                em.close();
+            }
+
             return updateVote;
         }
         else {

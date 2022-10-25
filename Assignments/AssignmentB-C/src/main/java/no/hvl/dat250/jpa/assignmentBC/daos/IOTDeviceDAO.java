@@ -11,59 +11,105 @@ public class IOTDeviceDAO {
 
     private final AtomicLong id_generator;
     public static final String PERSISTENCE_UNIT_NAME = "AssignmentB-C";
-    private EntityManager em;
+    private EntityManagerFactory factory;
     public IOTDeviceDAO() {
         this.id_generator = new AtomicLong();
-
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        em = factory.createEntityManager();
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     }
 
-    private void executeInsideTransaction(Consumer<EntityManager> action) {
-        // Todo: Find a way to use EntityTransaction.commit(), as this is needed to put data into database.
+    private void executeInsideTransaction(EntityManager em, Consumer<EntityManager> action) {
         EntityTransaction tx = em.getTransaction();
+
         try {
-            //tx.begin();
+            tx.begin();
             action.accept(em);
-            //tx.commit();
+            tx.commit();
         }
-        catch (RuntimeException e) {
+        catch (Throwable e) {
+            e.printStackTrace();
             tx.rollback();
-            throw e;
+        }
+        finally {
+            em.close();
         }
     }
 
     public IOTDevice create(IOTDevice iot) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         if(iot.getID() == null) {
             Long ID = this.id_generator.incrementAndGet();
             iot.setID(ID);
         }
-        executeInsideTransaction(em -> em.persist(iot));
+        //executeInsideTransaction(em, em -> em.persist(iot));
+        try {
+            tx.begin();
+            em.persist(iot);
+            tx.commit();
+        }
+        catch (Throwable e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+        finally {
+            em.close();
+        }
         return iot;
     }
 
     public List<IOTDevice> getAllDevices() {
+        EntityManager em = factory.createEntityManager();
         Query query = em.createQuery("SELECT d FROM IOTDevice d");
         return query.getResultList();
     }
 
     public IOTDevice getDeviceByID(Long id) {
+        EntityManager em = factory.createEntityManager();
         IOTDevice iot = em.find(IOTDevice.class, Long.valueOf(id));
         return iot;
     }
 
     public IOTDevice delete(Long id) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         IOTDevice iot = getDeviceByID(id);
         if (iot != null) {
-            executeInsideTransaction(em -> em.remove(iot));
+            //executeInsideTransaction(em, em -> em.remove(iot));
+            try {
+                tx.begin();
+                em.remove(iot);
+                tx.commit();
+            }
+            catch (Throwable e) {
+                e.printStackTrace();
+                tx.rollback();
+            }
+            finally {
+                em.close();
+            }
         }
         return iot;    }
 
     public IOTDevice update(IOTDevice device, Long id) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         if (getDeviceByID(id) != null) {
             IOTDevice updateDevice = getDeviceByID(id);
             updateDevice.setPoll(device.getPoll());
-            executeInsideTransaction(em -> em.merge(updateDevice));
+            //executeInsideTransaction(em, em -> em.merge(updateDevice));
+            try {
+                tx.begin();
+                em.merge(updateDevice);
+                tx.commit();
+            }
+            catch (Throwable e) {
+                e.printStackTrace();
+                tx.rollback();
+            }
+            finally {
+                em.close();
+            }
+
             return updateDevice;
         }
         else {

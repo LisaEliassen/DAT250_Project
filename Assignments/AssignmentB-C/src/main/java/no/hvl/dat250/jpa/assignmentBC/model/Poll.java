@@ -24,8 +24,6 @@ public class Poll {
     private List<Long> votes = new ArrayList<>();
 
     @OneToOne(targetEntity = IOTDevice.class)
-    //@JoinColumn(name = "device_ID")
-    //@PrimaryKeyJoinColumn(name="deviceID", referencedColumnName="deviceID")
     private Long iotID;
 
     public Long getID() {

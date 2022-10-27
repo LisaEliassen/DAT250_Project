@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Poll {
+public class Poll2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pollID;
@@ -16,16 +16,15 @@ public class Poll {
     private String description;
     private String pollResult;
 
-    @ManyToOne(targetEntity = FeedAppUser.class)
-    @JoinColumn(name = "userID")
-    private Long userID;
+    @ManyToOne(targetEntity = FeedAppUser2.class, cascade = CascadeType.MERGE)
+    //@JoinColumn(name = "feedappuser_id")
+    private FeedAppUser2 feedappuser;
 
-    @ElementCollection
-    private List<Long> votes = new ArrayList<>();
+    @OneToMany(mappedBy = "poll", targetEntity = Vote2.class, cascade = CascadeType.ALL)
+    private List<Vote2> votes = new ArrayList<>();
 
-    //@OneToOne(targetEntity = IOTDevice.class)
-    @ElementCollection
-    private List<Long> iots = new ArrayList<>();
+    @OneToMany(mappedBy = "poll", targetEntity = IOTDevice2.class, cascade = CascadeType.ALL)
+    private List<IOTDevice2> iots = new ArrayList<>();
 
     public Long getID() {
         return pollID;
@@ -43,20 +42,20 @@ public class Poll {
         this.pollName = newName;
     }
 
-    public Long getUser() {
-        return this.userID;
+    public FeedAppUser2 getUser() {
+        return this.feedappuser;
     }
 
-    public void setUser(Long userID) {
-        this.userID = userID;
+    public void setUser(FeedAppUser2 user) {
+        this.feedappuser = user;
     }
 
-    public void setIoT(List<Long> iotIDs) {
-        this.iots.addAll(iotIDs);
+    public void setIoT(List<IOTDevice2> iotIDs) {
+        this.iots.addAll(iots);
     }
 
-    public void addIoT(Long iotID) {
-        this.iots.add(iotID);
+    public void addIoT(IOTDevice2 iot) {
+        this.iots.add(iot);
     }
 
     public String getCategory() {
@@ -83,20 +82,20 @@ public class Poll {
         this.pollResult = pollResult;
     }
 
-    public List<Long> getVotes() {
+    public List<Vote2> getVotes() {
         return votes;
     }
 
-    public void addVote(Long voteID) {
-        this.votes.add(voteID);
+    public void addVote(Vote2 vote) {
+        this.votes.add(vote);
         //updateResult();
     }
 
-    public List<Long> getAllVotes() {
-         return this.votes;
+    public List<Vote2> getAllVotes() {
+        return this.votes;
     }
 
-    public void setVotes(List<Long> votes) {
+    public void setVotes(List<Vote2> votes) {
         this.votes = votes;
     }
 

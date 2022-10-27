@@ -6,23 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class IOTDevice {
+public class IOTDevice2 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deviceID;
 
-    //@OneToOne(targetEntity = Poll.class)
-    @ManyToOne(targetEntity = Poll.class)
+    @ManyToOne(targetEntity = Poll2.class)
     @JoinColumn(name = "pollID")
-    private Long pollID;
+    private Poll2 poll;
 
     /*
     @OneToOne(mappedBy="voteID")
     private Vote vote;
      */
-    @ElementCollection
-    private List<Long> votes = new ArrayList<>();
 
     public Long getID() {
         return deviceID;
@@ -32,23 +29,23 @@ public class IOTDevice {
         this.deviceID = deviceID;
     }
 
-    public Long getPoll() {
-        return pollID;
+    public Poll2 getPoll() {
+        return this.poll;
     }
 
-    public void setPoll(Long pollID) {
-        this.pollID = pollID;
+    public void setPoll(Poll2 poll) {
+        this.poll = poll;
     }
-
-    public List<Long> getVotes() {
+    /*
+    public List<Vote2> getVotes() {
         return this.votes;
     }
 
-    public void setVote(List<Long> votes) {
+    public void setVote(List<Vote2> votes) {
         this.votes = votes;
     }
 
-    public void addVote(Long voteID) {
-        this.votes.add(voteID);
-    }
+    public void addVote(Vote2 vote) {
+        this.votes.add(vote);
+    }*/
 }

@@ -1,6 +1,10 @@
-package no.hvl.dat250.jpa.assignmentBC.model;
+package no.hvl.dat250.jpa.assignmentBC.service;
 
 import com.google.gson.Gson;
+import no.hvl.dat250.jpa.assignmentBC.model.FeedAppUser;
+import no.hvl.dat250.jpa.assignmentBC.model.Poll;
+import no.hvl.dat250.jpa.assignmentBC.model.Vote;
+import no.hvl.dat250.jpa.assignmentBC.service.DatabaseService;
 import no.hvl.dat250.jpa.assignmentBC.daos.FeedAppUserDAO;
 import no.hvl.dat250.jpa.assignmentBC.daos.PollDAO;
 import no.hvl.dat250.jpa.assignmentBC.daos.VoteDAO;
@@ -17,9 +21,10 @@ public class RestAPI {
 
         after((req, res) -> res.type("application/json"));
 
-        final PollDAO pollDAO = new PollDAO();
-        final FeedAppUserDAO userDAO = new FeedAppUserDAO();
-        final VoteDAO voteDAO = new VoteDAO();
+        final DatabaseService dbService = new DatabaseService();
+        final PollDAO pollDAO = new PollDAO(dbService);
+        final FeedAppUserDAO userDAO = new FeedAppUserDAO(dbService);
+        final VoteDAO voteDAO = new VoteDAO(dbService);
 
 
         Gson gson = new Gson();
@@ -36,9 +41,9 @@ public class RestAPI {
             Poll poll = gson.fromJson(request.body(), Poll.class);
             poll = pollDAO.create(poll);
             System.out.println(gson.toJson(poll));
-            FeedAppUser user = userDAO.getUserByID(poll.getUser());
-            user.addPoll(poll.getID());
-            userDAO.update(user, user.getID());
+            //FeedAppUser user = userDAO.getUserByID(poll.getUser());
+            //user.addPoll(poll.getID());
+            //userDAO.update(user, user.getID());
 
             return gson.toJson(poll);
         });
@@ -141,7 +146,9 @@ public class RestAPI {
 
             Vote vote = gson.fromJson(request.body(), Vote.class);
             vote = voteDAO.create(vote);
-            pollDAO.addVote(vote.getID(), vote.getPoll());
+
+            // Todo: fix new way to add vote.
+            //pollDAO.addVote(vote.getID(), vote.getPoll());
 
             return gson.toJson(vote);
         });
@@ -214,7 +221,7 @@ public class RestAPI {
             response.type("application/json");
 
             FeedAppUser user = gson.fromJson(request.body(), FeedAppUser.class);
-            user =userDAO.create(user);
+            user = userDAO.create(user);
 
             return gson.toJson(user);
         });

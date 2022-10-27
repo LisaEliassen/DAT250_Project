@@ -1,25 +1,28 @@
 package no.hvl.dat250.jpa.assignmentBC.daos;
 
-import no.hvl.dat250.jpa.assignmentBC.model.Vote;
+import no.hvl.dat250.jpa.assignmentBC.model.Vote2;
 import no.hvl.dat250.jpa.assignmentBC.service.DatabaseService;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class VoteDAO {
+public class VoteDAO2 {
     private final AtomicLong id_generator;
     public static final String PERSISTENCE_UNIT_NAME = "AssignmentB-C";
     private EntityManagerFactory factory;
     private DatabaseService dbService;
 
-    public VoteDAO(DatabaseService dbService) {
+    public VoteDAO2(DatabaseService dbService) {
         this.id_generator = new AtomicLong();
         this.factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         this.dbService = dbService;
     }
 
-    public Vote create(Vote vote) {
+    public Vote2 create(Vote2 vote) {
         /*if(vote.getID() == null) {
             Long ID = this.id_generator.incrementAndGet();
             vote.setID(ID);
@@ -29,29 +32,29 @@ public class VoteDAO {
         return vote;
     }
 
-    public List<Vote> getAllVotes() {
+    public List<Vote2> getAllVotes() {
         EntityManager em = factory.createEntityManager();
-        Query query = em.createQuery("SELECT v FROM Vote v");
+        Query query = em.createQuery("SELECT v FROM Vote2 v");
         return query.getResultList();
     }
 
-    public Vote getVoteByID(Long id) {
+    public Vote2 getVoteByID(Long id) {
         EntityManager em = factory.createEntityManager();
-        Vote vote = em.find(Vote.class, Long.valueOf(id));
+        Vote2 vote = em.find(Vote2.class, Long.valueOf(id));
         return vote;
     }
 
-    public Vote delete(Long id) {
-        Vote vote = getVoteByID(id);
+    public Vote2 delete(Long id) {
+        Vote2 vote = getVoteByID(id);
         if (vote != null) {
             dbService.remove(vote);
         }
         return vote;
     }
 
-    public Vote update(Vote vote, Long id) {
+    public Vote2 update(Vote2 vote, Long id) {
         if (getVoteByID(id) != null) {
-            Vote updateVote = getVoteByID(id);
+            Vote2 updateVote = getVoteByID(id);
             updateVote.setVote(vote.getVote());
             dbService.merge(updateVote);
             return updateVote;

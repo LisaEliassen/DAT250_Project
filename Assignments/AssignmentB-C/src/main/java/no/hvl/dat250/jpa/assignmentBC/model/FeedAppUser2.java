@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class FeedAppUser {
+public class FeedAppUser2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
@@ -18,23 +18,16 @@ public class FeedAppUser {
 
     private String password;
 
-    /* @OneToMany(mappedBy = "feedAppUser")
-     private Set<Poll> polls = new HashSet<>();*/
-    @ElementCollection
-    private List<Long> polls = new ArrayList<>();
-    //@OneToMany(mappedBy = "feedAppUser")
-    //private List<Poll> polls = new ArrayList<>();
+    @OneToMany(mappedBy = "feedappuser", cascade = CascadeType.ALL)
+    private List<Poll2> polls = new ArrayList<>();
 
-    /*@OneToMany(mappedBy = "userID")
-    private Set<Vote> votes = new HashSet<>();*/
-    @ElementCollection
-    //@OneToMany(mappedBy = "userID")
-    private List<Long> votes = new ArrayList<>();
+    @OneToMany(mappedBy = "feedappuser", cascade = CascadeType.ALL)
+    private List<Vote2> votes = new ArrayList<>();
 
-    public FeedAppUser() {
+    public FeedAppUser2() {
     }
 
-    public FeedAppUser(Long id) {
+    public FeedAppUser2(Long id) {
         this.setID(id);
     }
 
@@ -78,27 +71,28 @@ public class FeedAppUser {
         this.admin = admin;
     }
 
-    public List<Long> getPolls() {
+    public List<Poll2> getPolls() {
         return polls;
     }
 
-    public void addPoll(Long pollID) {
-        this.polls.add(pollID);
+    public FeedAppUser2 addPoll(Poll2 poll) {
+        this.polls.add(poll);
+        return this;
     }
 
-    public void setPolls(List<Long> polls) {
+    public void setPolls(List<Poll2> polls) {
         this.polls = polls;
     }
 
-    public List<Long> getVotes() {
+    public List<Vote2> getVotes() {
         return votes;
     }
 
-    public void addVote(Long voteID) {
-        this.votes.add(voteID);
+    public void addVote(Vote2 vote) {
+        this.votes.add(vote);
     }
 
-    public void setVotes(List<Long> votes) {
+    public void setVotes(List<Vote2> votes) {
         this.votes = votes;
     }
 

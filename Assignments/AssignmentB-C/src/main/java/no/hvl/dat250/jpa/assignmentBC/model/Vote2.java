@@ -3,28 +3,21 @@ package no.hvl.dat250.jpa.assignmentBC.model;
 import javax.persistence.*;
 
 @Entity
-public class Vote {
+public class Vote2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long voteID;
 
     private String vote;
 
-    /*@ManyToOne(targetEntity = FeedAppUser.class)
-    @JoinColumn(name = "user_ID")
-    private FeedAppUser feedAppUser;*/
+    @ManyToOne(targetEntity = FeedAppUser2.class, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "feedappuser")
+    private FeedAppUser2 feedappuser;
 
-    @ManyToOne(targetEntity = FeedAppUser.class)
-    @JoinColumn(name = "userID")
-    private Long userID;
+    @ManyToOne(targetEntity = Poll2.class, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "pollID")
+    private Poll2 poll;
 
-    /*@ManyToOne(targetEntity = Poll.class)
-    @JoinColumn(name = "pollID")
-    private Poll poll;
-*/
-    @ManyToOne(targetEntity = Poll.class)
-    @JoinColumn(name = "pollID")
-    private Long pollID;
     /*
     @OneToOne(mappedBy = "vote")
     private IOTDevice iot; */
@@ -37,20 +30,20 @@ public class Vote {
         this.vote = vote;
     }
 
-    public Long getUser() {
-        return userID;
+    public FeedAppUser2 getUser() {
+        return feedappuser;
     }
 
-    public void setUser(Long userID) {
-        this.userID = userID;
+    public void setUser(FeedAppUser2 userID) {
+        this.feedappuser = feedappuser;
     }
 
-    public Long getPoll() {
-        return pollID;
+    public Poll2 getPoll() {
+        return poll;
     }
 
-    public void setPoll(Long pollID) {
-        this.pollID = pollID;
+    public void setPoll(Poll2 poll) {
+        this.poll = poll;
     }
 
     public Long getID() {
